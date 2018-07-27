@@ -3,15 +3,15 @@ const { get } = require('lodash')
 
 class APIClient {
 
-    constructor(chluIpfs) {
-        this.chluIpfs = chluIpfs
-        this.axios = axios.create({
-            baseURL: this.chluIpfs.url + '/api/v1/'
-        })
+    constructor(queryApiUrl, publishApiUrl) {
+        const subpath = '/api/v1'
+        this.queryApiUrl = queryApiUrl + subpath
+        this.publishApiUrl = publishApiUrl + subpath
+        this.axios = axios.create()
     }
 
     async readReviewRecord(multihash, options = {}) {
-        const response = await this.axios.get(`/reviews/${multihash}`, {
+        const response = await this.axios.get(`${this.queryApiUrl}/reviews/${multihash}`, {
             params: {
                 getLatestVersion: get(options, 'getLatestVersion', true)
             }
@@ -23,7 +23,7 @@ class APIClient {
         const options = Object.assign({}, {
             publish: true
         }, opt)
-        const response = await this.axios.post('/reviews', {
+        const response = await this.axios.post(`${this.publishApiUrl}/reviews`, {
             data: reviewRecord,
             params: {
                 publish: get(options, 'publish', true),
@@ -35,24 +35,24 @@ class APIClient {
     }
 
     async getReviewsByDID(didId, offset = 0, limit = 0) {
-        const response = await this.axios.get(`/dids/${didId}/reviews/about`, {
+        const response = await this.axios.get(`${this.queryApiUrl}/dids/${didId}/reviews/about`, {
             params: { limit, offset }
         })
         return response.data
     }
 
     async getDID(didId) {
-        const response = await this.axios.get(`/dids/${didId}`)
+        const response = await this.axios.get(`${this.queryApiUrl}/dids/${didId}`)
         return response.data
     }
 
     async getPoPR(multihash) {
-        const response = await this.axios.get(`/poprs/${multihash}`)
+        const response = await this.axios.get(`${this.queryApiUrl}/poprs/${multihash}`)
         return response.data
     }
 
     async publishDID(publicDidDocument, signature) {
-        const response = await this.axios.post('/dids', { publicDidDocument, signature })
+        const response = await this.axios.post(`${this.publishApiUrl}/dids`, { publicDidDocument, signature })
         return response.data
     }
 
