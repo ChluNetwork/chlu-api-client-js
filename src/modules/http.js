@@ -19,11 +19,15 @@ class APIClient {
         return response.data
     }
 
-    async storeReviewRecord(reviewRecord, options = { publish: true }) {
+    async storeReviewRecord(reviewRecord, opt = {}) {
+        const options = Object.assign({}, {
+            publish: true
+        }, opt)
         const response = await this.axios.post('/reviews', {
             data: reviewRecord,
             params: {
-                publish: get(options, 'publish', true)
+                publish: get(options, 'publish', true),
+                bitcoinTransactionHash: get(options, 'bitcoinTransactionHash', null)
             }
         })
         return response.data
