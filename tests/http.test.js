@@ -44,12 +44,13 @@ describe('HTTP Client', () => {
             })
         }
         const reviewRecord = { multihash: 'abc' }
-        let response = await api.storeReviewRecord(reviewRecord, { publish: false })
+        let response = await api.storeReviewRecord(reviewRecord, { publish: false, bitcoinTransactionHash: 'abc' })
         expect(response).to.deep.equal({ hello: 'world' })
         expect(api.axios.post.args[0][0]).to.equal('/reviews')
         expect(api.axios.post.args[0][1]).to.deep.equal({
             data: reviewRecord,
             params: {
+                bitcoinTransactionHash: 'abc',
                 publish: false
             }
         })
@@ -57,6 +58,7 @@ describe('HTTP Client', () => {
         expect(api.axios.post.args[1][1]).to.deep.equal({
             data: reviewRecord,
             params: {
+                bitcoinTransactionHash: null,
                 publish: true
             }
         })

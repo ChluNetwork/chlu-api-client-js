@@ -70,7 +70,7 @@ describe('DID Module (API Client Version)', () => {
         expect(did).to.deep.equal(exampleDID.publicDidDocument);
     });
 
-    it('publishes DID Public Document', async () => {
+    it('publishes signed DID Public Document', async () => {
         await chluApiClient.did.generate()
         await chluApiClient.did.publish() 
         const [ publicDidDocument, signature ] = chluApiClient.api.publishDID.args[0]
