@@ -24,7 +24,10 @@ class ChluAPIClient {
         this.vendor = new Vendor(this)
         // Some are specific versions for the api client
         this.did = new DID(this)
-        this.api = new APIClient(this)
+        this.api = new APIClient(
+            options.queryApiUrl || '/',
+            options.publishApiUrl || '/'
+        )
     }
 
     async start() {

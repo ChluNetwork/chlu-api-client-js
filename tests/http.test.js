@@ -1,18 +1,20 @@
 const sinon = require('sinon')
 const expect = require('chai').expect
-const APIClient = require('../src/modules/http')
+const ChluAPIClient = require('../src')
 const logger = require('chlu-ipfs-support/tests/utils/logger');
 
 describe('HTTP Client', () => {
 
-    let api
+    let chluApiClient, api
 
     beforeEach(() => {
-        api = new APIClient({
-            url: '/baseurl/',
+        chluApiClient = new ChluAPIClient({
+            queryApiUrl: 'https://test.query.chlu.io',
+            publishApiUrl: 'https://test.publish.chlu.io',
             enablePersistence: false,
             logger: logger('HTTP Test')
         })
+        api = chluApiClient.api
     })
 
     it('readReviewRecord', async () => {
@@ -23,7 +25,7 @@ describe('HTTP Client', () => {
         }
         let response = await api.readReviewRecord('abc', { getLatestVersion: false })
         expect(response).to.deep.equal({ hello: 'world' })
-        expect(api.axios.get.args[0][0]).to.equal('/reviews/abc')
+        expect(api.axios.get.args[0][0]).to.equal('https://test.query.chlu.io/api/v1/reviews/abc')
         expect(api.axios.get.args[0][1]).to.deep.equal({
             params: {
                 getLatestVersion: false
@@ -46,7 +48,7 @@ describe('HTTP Client', () => {
         const reviewRecord = { multihash: 'abc' }
         let response = await api.storeReviewRecord(reviewRecord, { publish: false, bitcoinTransactionHash: 'abc' })
         expect(response).to.deep.equal({ hello: 'world' })
-        expect(api.axios.post.args[0][0]).to.equal('/reviews')
+        expect(api.axios.post.args[0][0]).to.equal('https://test.publish.chlu.io/api/v1/reviews')
         expect(api.axios.post.args[0][1]).to.deep.equal({
             data: reviewRecord,
             params: {
@@ -72,7 +74,7 @@ describe('HTTP Client', () => {
         }
         let response = await api.getReviewsByDID('abc')
         expect(response).to.deep.equal({ hello: 'world' })
-        expect(api.axios.get.args[0][0]).to.equal('/dids/abc/reviews/about')
+        expect(api.axios.get.args[0][0]).to.equal('https://test.query.chlu.io/api/v1/dids/abc/reviews/about')
         expect(api.axios.get.args[0][1]).to.deep.equal({
             params: {
                 limit: 0,
@@ -96,7 +98,7 @@ describe('HTTP Client', () => {
         }
         let response = await api.getDID('abc')
         expect(response).to.deep.equal({ hello: 'world' })
-        expect(api.axios.get.calledWith('/dids/abc')).to.be.true
+        expect(api.axios.get.calledWith('https://test.query.chlu.io/api/v1/dids/abc')).to.be.true
     })
 
     it('publishDID', async () => {
@@ -113,7 +115,7 @@ describe('HTTP Client', () => {
         }
         let response = await api.publishDID(publicDidDocument, signature)
         expect(response).to.deep.equal({ hello: 'world' })
-        expect(api.axios.post.args[0][0]).to.equal('/dids')
+        expect(api.axios.post.args[0][0]).to.equal('https://test.publish.chlu.io/api/v1/dids')
         expect(api.axios.post.args[0][1]).to.deep.equal({
             signature, publicDidDocument
         })
