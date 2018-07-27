@@ -41,9 +41,13 @@ class ChluAPIClient {
         return await this.api.readReviewRecord(multihash, options)
     }
 
-    async storeReviewRecord(reviewRecord, options) {
-        // TODO: sign/prepare the review record
-        return await this.api.storeReviewRecord(reviewRecord, options)
+    async storeReviewRecord(reviewRecord, options = {}) {
+        // prepare the review record
+        // this will sign it as both customer and issuer. The server can then replace the issuer signature with its own
+        // the 'validate' option is forced to false because the API Client cannot validate.
+        const bitcoinTransactionHash = get(options, 'bitcoinTransactionHash', null)
+        const result = await this.reviewRecords.prepareReviewRecord(reviewRecord, bitcoinTransactionHash, false)
+        return await this.api.storeReviewRecord(result.reviewRecord, options)
     }
 
     async getReviewsByDID(didId, offset, limit) {
@@ -56,6 +60,22 @@ class ChluAPIClient {
 
     async getPoPR(multihash) {
         return await this.api.getPoPR(multihash)
+    }
+
+    async generateNewDID(publish, waitForReplication) {
+        return await this.did.generate(publish, waitForReplication)
+    }
+
+    async exportDID() {
+        return await this.did.export()
+    }
+    
+    async importDID(did, publish, waitForReplication) {
+        return await this.did.import(did, publish, waitForReplication)
+    }
+    
+    async registerToMarketplace(url) {
+        return await this.vendor.registerToMarketplace(url)
     }
 
 }
