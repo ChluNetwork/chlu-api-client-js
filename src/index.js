@@ -1,5 +1,5 @@
 const EventEmitter = require('events')
-const DID = require('./modules/did')
+const DIDIPFSHelper = require('./modules/didIpfsHelper')
 const APIClient = require('./modules/http')
 const Persistence = require('./modules/persistence')
 const Vendor = require('chlu-ipfs-support/src/modules/vendor')
@@ -26,7 +26,7 @@ class ChluAPIClient {
         this.reviewRecords = new ReviewRecords(this)
         this.vendor = new Vendor(this)
         // Some are specific versions for the api client
-        this.didIpfsHelper = new DID(this)
+        this.didIpfsHelper = new DIDIPFSHelper(this)
         this.api = new APIClient(
             options.queryApiUrl || '/',
             options.publishApiUrl || '/'
@@ -60,8 +60,8 @@ class ChluAPIClient {
         return await this.api.getReviewsByDID(didId, offset, limit)
     }
 
-    async getDID(didId) {
-        return await this.didIpfsHelper.getDID(didId)
+    async getDID(didId, waitUntilPresent = false) {
+        return await this.didIpfsHelper.getDID(didId, waitUntilPresent)
     }
 
     async getPoPR(multihash) {

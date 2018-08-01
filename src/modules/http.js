@@ -40,8 +40,12 @@ class APIClient {
         return response.data
     }
 
-    async getDID(didId) {
-        const response = await this.axios.get(`${this.queryApiUrl}/dids/${didId}`)
+    async getDID(didId, waitUntilPresent = false) {
+        const response = await this.axios.get(`${this.queryApiUrl}/dids/${didId}`, {
+            params: {
+                waitUntilPresent: Boolean(waitUntilPresent)
+            }
+        })
         return response.data
     }
 
