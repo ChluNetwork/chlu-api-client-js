@@ -23,8 +23,7 @@ class APIClient {
         const options = Object.assign({}, {
             publish: true
         }, opt)
-        const response = await this.axios.post(`${this.publishApiUrl}/reviews`, {
-            data: reviewRecord,
+        const response = await this.axios.post(`${this.publishApiUrl}/reviews`, reviewRecord, {
             params: {
                 publish: get(options, 'publish', true),
                 bitcoinTransactionHash: get(options, 'bitcoinTransactionHash', null)
