@@ -26,7 +26,7 @@ class ChluAPIClient {
         this.reviewRecords = new ReviewRecords(this)
         this.vendor = new Vendor(this)
         // Some are specific versions for the api client
-        this.did = new DID(this)
+        this.didIpfsHelper = new DID(this)
         this.api = new APIClient(
             options.queryApiUrl || '/',
             options.publishApiUrl || '/'
@@ -36,7 +36,7 @@ class ChluAPIClient {
     async start() {
         await this.persistence.loadPersistedData()
         // TODO: call API to verify health, Chlu Network and other information
-        await this.did.start()
+        await this.didIpfsHelper.start()
     }
 
     async stop() {
@@ -61,7 +61,7 @@ class ChluAPIClient {
     }
 
     async getDID(didId) {
-        return await this.did.getDID(didId)
+        return await this.didIpfsHelper.getDID(didId)
     }
 
     async getPoPR(multihash) {
@@ -69,15 +69,15 @@ class ChluAPIClient {
     }
 
     async generateNewDID(publish, waitForReplication) {
-        return await this.did.generate(publish, waitForReplication)
+        return await this.didIpfsHelper.generate(publish, waitForReplication)
     }
 
     async exportDID() {
-        return await this.did.export()
+        return await this.didIpfsHelper.export()
     }
     
     async importDID(did, publish, waitForReplication) {
-        return await this.did.import(did, publish, waitForReplication)
+        return await this.didIpfsHelper.import(did, publish, waitForReplication)
     }
     
     async registerToMarketplace(url) {

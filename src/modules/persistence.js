@@ -8,9 +8,9 @@ class Persistence {
     async persistData() {
         if (this.chluApiClient.enablePersistence) {
             const data = {};
-            if (this.chluApiClient.did.isPresent()) {
+            if (this.chluApiClient.didIpfsHelper.isPresent()) {
                 // save DID
-                data.did = this.chluApiClient.did.export()
+                data.did = this.chluApiClient.didIpfsHelper.export()
             }
             this.chluApiClient.logger.debug('Saving persisted data');
             try {
@@ -31,7 +31,7 @@ class Persistence {
             const data = await this.chluApiClient.storage.load(this.chluApiClient.directory);
             if (data.did) {
                 // Don't publish. If it's in persisted data, it was published before
-                await this.chluApiClient.did.import(data.did, false);
+                await this.chluApiClient.didIpfsHelper.import(data.did, false);
             }
             this.chluApiClient.events.emit('persistence/loaded');
             this.chluApiClient.logger.debug('Loaded persisted data');
