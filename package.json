@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "chlu-ipfs-support": "ChluNetwork/chlu-ipfs-support#cleanup-and-fixes",
+    "chlu-ipfs-support": "ChluNetwork/chlu-ipfs-support#misc-features",
     "lodash": "^4.17.10"
   },
   "devDependencies": {

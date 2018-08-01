@@ -932,9 +932,9 @@ chlu-did@ChluNetwork/chlu-did:
     elliptic "^6.4.0"
     js-sha3 "^0.7.0"
 
-chlu-ipfs-support@ChluNetwork/chlu-ipfs-support#cleanup-and-fixes:
+chlu-ipfs-support@ChluNetwork/chlu-ipfs-support#misc-features:
   version "0.2.0"
-  resolved "https://codeload.github.com/ChluNetwork/chlu-ipfs-support/tar.gz/ebb15bcd5f5d66fb097c618d2c041b904f7040da"
+  resolved "https://codeload.github.com/ChluNetwork/chlu-ipfs-support/tar.gz/eaa65e9befbe1c774b3c1be1a196f4a45dc2cd32"
   dependencies:
     axios "^0.18.0"
     blockcypher ChluNetwork/node-client
@@ -946,7 +946,6 @@ chlu-ipfs-support@ChluNetwork/chlu-ipfs-support#cleanup-and-fixes:
     elliptic "^6.4.0"
     ipfs "~0.28.2"
     ipfs-api "^20.0.0"
-    libp2p-websocket-star-rendezvous "^0.2.3"
     lodash "^4.17.5"
     lru-cache "^4.1.2"
     moment "^2.22.2"
@@ -3808,7 +3807,7 @@ level-js@^2.2.4:
     typedarray-to-buffer "~1.0.0"
     xtend "~2.1.2"
 
-"level-js@github:timkuijsten/level.js#idbunwrapper":
+level-js@timkuijsten/level.js#idbunwrapper:
   version "2.2.3"
   resolved "https://codeload.github.com/timkuijsten/level.js/tar.gz/18e03adab34c49523be7d3d58fafb0c632f61303"
   dependencies:
@@ -4130,30 +4129,6 @@ libp2p-webrtc-star@~0.13.4:
     socket.io-client "^2.0.4"
     stream-to-pull-stream "^1.7.2"
     webrtcsupport "github:ipfs/webrtcsupport"
-
-libp2p-websocket-star-rendezvous@^0.2.3:
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/libp2p-websocket-star-rendezvous/-/libp2p-websocket-star-rendezvous-0.2.3.tgz#f59fab9a39d52715c703180619dcb1f0ebe1c921"
-  dependencies:
-    async "^2.6.0"
-    data-queue "0.0.3"
-    debug "^3.1.0"
-    epimetheus "^1.0.55"
-    hapi "^16.6.2"
-    inert "^4.2.1"
-    libp2p-crypto "^0.12.1"
-    mafmt "^4.0.0"
-    merge-recursive "0.0.3"
-    minimist "^1.2.0"
-    multiaddr "^3.0.2"
-    once "^1.4.0"
-    peer-id "^0.10.6"
-    peer-info "^0.11.6"
-    prom-client "^10.2.2"
-    socket.io "^2.0.4"
-    socket.io-client "^2.0.4"
-    socket.io-pull-stream "^0.1.4"
-    uuid "^3.2.1"
 
 libp2p-websocket-star@~0.7.7:
   version "0.7.7"
@@ -4714,7 +4689,7 @@ multihashing-async@~0.5.1:
     murmurhash3js "^3.0.1"
     nodeify "^1.0.1"
 
-"multiplex@github:dignifiedquire/multiplex":
+multiplex@dignifiedquire/multiplex:
   version "6.7.0"
   resolved "https://codeload.github.com/dignifiedquire/multiplex/tar.gz/b5d5edd30454e2c978ee8c52df86f5f4840d2eab"
   dependencies:
