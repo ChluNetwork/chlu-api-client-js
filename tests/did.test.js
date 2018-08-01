@@ -37,25 +37,25 @@ describe('DID Module (API Client Version)', () => {
 
 
     it('signs and verifies Review Records', async () => {
-        await chluApiClient.did.start()
+        await chluApiClient.didIpfsHelper.start()
         async function verifyRR(rr) {
             const hashed = await chluApiClient.reviewRecords.hashReviewRecord(rr);
-            const issuer = await chluApiClient.did.verifyMultihash(
+            const issuer = await chluApiClient.didIpfsHelper.verifyMultihash(
                 hashed.issuer,
                 hashed.hash,
                 hashed.issuer_signature
             );
-            const customer = await chluApiClient.did.verifyMultihash(
+            const customer = await chluApiClient.didIpfsHelper.verifyMultihash(
                 hashed.customer_signature.creator,
                 hashed.hash,
                 hashed.customer_signature
             )
-            expect(hashed.issuer).to.equal(chluApiClient.did.didId)
-            expect(hashed.customer_signature.creator).to.equal(chluApiClient.did.didId)
+            expect(hashed.issuer).to.equal(chluApiClient.didIpfsHelper.didId)
+            expect(hashed.customer_signature.creator).to.equal(chluApiClient.didIpfsHelper.didId)
             return issuer && customer
         }
         let reviewRecord = await getFakeReviewRecord();
-        reviewRecord = await chluApiClient.did.signReviewRecord(reviewRecord);
+        reviewRecord = await chluApiClient.didIpfsHelper.signReviewRecord(reviewRecord);
         const verification = await verifyRR(reviewRecord);
         expect(verification).to.be.true;
         // Test failure case: change a field and validate again
@@ -66,51 +66,51 @@ describe('DID Module (API Client Version)', () => {
     });
 
     it('retrieves DID by ID', async () => {
-        const did = await chluApiClient.did.getDID(exampleDIDID);
+        const did = await chluApiClient.didIpfsHelper.getDID(exampleDIDID);
         expect(did).to.deep.equal(exampleDID.publicDidDocument);
     });
 
     it('publishes signed DID Public Document', async () => {
-        await chluApiClient.did.generate()
-        await chluApiClient.did.publish() 
+        await chluApiClient.didIpfsHelper.generate()
+        await chluApiClient.didIpfsHelper.publish() 
         const [ publicDidDocument, signature ] = chluApiClient.api.publishDID.args[0]
-        expect(publicDidDocument.id).to.equal(chluApiClient.did.didId)
+        expect(publicDidDocument.id).to.equal(chluApiClient.didIpfsHelper.didId)
         const multihash = getDAGNodeMultihash(await createDAGNode(Buffer.from(JSON.stringify(publicDidDocument))))
-        const valid = await chluApiClient.did.verifyMultihash(publicDidDocument.id, multihash, signature)
+        const valid = await chluApiClient.didIpfsHelper.verifyMultihash(publicDidDocument.id, multihash, signature)
         expect(valid).to.be.true
     });
 
     it('generates DID', async () => {
-        expect(chluApiClient.did.didId).to.be.null
-        expect(chluApiClient.did.publicDidDocument).to.be.null
-        expect(chluApiClient.did.privateKeyBase58).to.be.null
-        await chluApiClient.did.start()
-        expect(chluApiClient.did.didId).to.match(/^did:chlu:/)
-        expect(chluApiClient.did.publicDidDocument).to.be.an('object')
-        expect(chluApiClient.did.privateKeyBase58).to.be.a('string')
-        expect(chluApiClient.did.publicDidDocument.id).to.equal(chluApiClient.did.didId)
+        expect(chluApiClient.didIpfsHelper.didId).to.be.null
+        expect(chluApiClient.didIpfsHelper.publicDidDocument).to.be.null
+        expect(chluApiClient.didIpfsHelper.privateKeyBase58).to.be.null
+        await chluApiClient.didIpfsHelper.start()
+        expect(chluApiClient.didIpfsHelper.didId).to.match(/^did:chlu:/)
+        expect(chluApiClient.didIpfsHelper.publicDidDocument).to.be.an('object')
+        expect(chluApiClient.didIpfsHelper.privateKeyBase58).to.be.a('string')
+        expect(chluApiClient.didIpfsHelper.publicDidDocument.id).to.equal(chluApiClient.didIpfsHelper.didId)
     });
 
     it('imports DID', async () => {
-        expect(chluApiClient.did.didId).to.be.null
-        expect(chluApiClient.did.publicDidDocument).to.be.null
-        expect(chluApiClient.did.privateKeyBase58).to.be.null
+        expect(chluApiClient.didIpfsHelper.didId).to.be.null
+        expect(chluApiClient.didIpfsHelper.publicDidDocument).to.be.null
+        expect(chluApiClient.didIpfsHelper.privateKeyBase58).to.be.null
         const did = await makeDID()
-        await chluApiClient.did.import(did)
-        expect(chluApiClient.did.didId).to.match(/^did:chlu:/)
-        expect(chluApiClient.did.publicDidDocument).to.be.an('object')
-        expect(chluApiClient.did.privateKeyBase58).to.be.a('string')
-        expect(chluApiClient.did.publicDidDocument.id).to.equal(chluApiClient.did.didId)
+        await chluApiClient.didIpfsHelper.import(did)
+        expect(chluApiClient.didIpfsHelper.didId).to.match(/^did:chlu:/)
+        expect(chluApiClient.didIpfsHelper.publicDidDocument).to.be.an('object')
+        expect(chluApiClient.didIpfsHelper.privateKeyBase58).to.be.a('string')
+        expect(chluApiClient.didIpfsHelper.publicDidDocument.id).to.equal(chluApiClient.didIpfsHelper.didId)
     });
 
     it('exports DID', async () => {
-        await chluApiClient.did.generate()
-        expect(chluApiClient.did.didId).to.match(/^did:chlu:/)
-        expect(chluApiClient.did.publicDidDocument).to.be.an('object')
-        expect(chluApiClient.did.privateKeyBase58).to.be.a('string')
-        expect(chluApiClient.did.publicDidDocument.id).to.equal(chluApiClient.did.didId)
-        const did = await chluApiClient.did.export()
-        expect(chluApiClient.did.publicDidDocument).to.deep.equal(did.publicDidDocument)
-        expect(chluApiClient.did.privateKeyBase58).to.deep.equal(did.privateKeyBase58)
+        await chluApiClient.didIpfsHelper.generate()
+        expect(chluApiClient.didIpfsHelper.didId).to.match(/^did:chlu:/)
+        expect(chluApiClient.didIpfsHelper.publicDidDocument).to.be.an('object')
+        expect(chluApiClient.didIpfsHelper.privateKeyBase58).to.be.a('string')
+        expect(chluApiClient.didIpfsHelper.publicDidDocument.id).to.equal(chluApiClient.didIpfsHelper.didId)
+        const did = await chluApiClient.didIpfsHelper.export()
+        expect(chluApiClient.didIpfsHelper.publicDidDocument).to.deep.equal(did.publicDidDocument)
+        expect(chluApiClient.didIpfsHelper.privateKeyBase58).to.deep.equal(did.privateKeyBase58)
     });
 });

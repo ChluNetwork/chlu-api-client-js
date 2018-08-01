@@ -27,8 +27,8 @@ describe('API Client', () => {
         expect(chluApiClient.reviewRecords.prepareReviewRecord.calledWith(reviewRecord, null, false)).to.be.true
         const sentReviewRecord = chluApiClient.api.storeReviewRecord.args[0][0]
         // check sig
-        const didId = chluApiClient.did.didId
-        const valid = await chluApiClient.did.verifyMultihash(didId, sentReviewRecord.hash, sentReviewRecord.customer_signature)
+        const didId = chluApiClient.didIpfsHelper.didId
+        const valid = await chluApiClient.didIpfsHelper.verifyMultihash(didId, sentReviewRecord.hash, sentReviewRecord.customer_signature)
         expect(valid).to.be.true
     })
 
