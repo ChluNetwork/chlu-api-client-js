@@ -150,7 +150,7 @@ class ChluIPFSDID {
             return wellKnown
         }
         this.chluIpfs.logger.debug(`GetDID ${didId}: calling API ${waitUntilPresent ? ', Waiting until present' : ''}`)
-        const data = await this.chluIpfs.api.getDID(didId)
+        const data = await this.chluIpfs.api.getDID(didId, waitUntilPresent)
         this.chluIpfs.logger.debug(`GetDID ${didId} => ${JSON.stringify(data)}`)
         return data
     }
