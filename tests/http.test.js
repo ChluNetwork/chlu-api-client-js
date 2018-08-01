@@ -49,16 +49,16 @@ describe('HTTP Client', () => {
         let response = await api.storeReviewRecord(reviewRecord, { publish: false, bitcoinTransactionHash: 'abc' })
         expect(response).to.deep.equal({ hello: 'world' })
         expect(api.axios.post.args[0][0]).to.equal('https://test.publish.chlu.io/api/v1/reviews')
-        expect(api.axios.post.args[0][1]).to.deep.equal({
-            data: reviewRecord,
+        expect(api.axios.post.args[0][1]).to.deep.equal(reviewRecord)
+        expect(api.axios.post.args[0][2]).to.deep.equal({
             params: {
                 bitcoinTransactionHash: 'abc',
                 publish: false
             }
         })
         response = await api.storeReviewRecord(reviewRecord)
-        expect(api.axios.post.args[1][1]).to.deep.equal({
-            data: reviewRecord,
+        expect(api.axios.post.args[1][1]).to.deep.equal(reviewRecord)
+        expect(api.axios.post.args[1][2]).to.deep.equal({
             params: {
                 bitcoinTransactionHash: null,
                 publish: true
