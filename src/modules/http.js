@@ -10,6 +10,12 @@ class APIClient {
         this.axios = axios.create()
     }
 
+    async getPublisherDID() {
+        const response = await this.axios.get(`${this.publishApiUrl}/id`)
+        const did = get(response, 'data.did', null)
+        return did
+    }
+
     async readReviewRecord(multihash, options = {}) {
         const response = await this.axios.get(`${this.queryApiUrl}/reviews/${multihash}`, {
             params: {
@@ -26,14 +32,22 @@ class APIClient {
         const response = await this.axios.post(`${this.publishApiUrl}/reviews`, reviewRecord, {
             params: {
                 publish: get(options, 'publish', true),
-                bitcoinTransactionHash: get(options, 'bitcoinTransactionHash', null)
+                bitcoinTransactionHash: get(options, 'bitcoinTransactionHash', ''),
+                expectedMultihash: get(options, 'expectedMultihash', '')
             }
         })
         return response.data
 
     }
 
-    async getReviewsByDID(didId, offset = 0, limit = 0) {
+    async getReviewsWrittenByDID(didId, offset = 0, limit = 0) {
+        const response = await this.axios.get(`${this.queryApiUrl}/dids/${didId}/reviews/writtenby`, {
+            params: { limit, offset }
+        })
+        return response.data
+    }
+
+    async getReviewsAboutDID(didId, offset = 0, limit = 0) {
         const response = await this.axios.get(`${this.queryApiUrl}/dids/${didId}/reviews/about`, {
             params: { limit, offset }
         })

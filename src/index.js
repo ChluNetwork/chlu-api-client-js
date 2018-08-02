@@ -35,7 +35,6 @@ class ChluAPIClient {
 
     async start() {
         await this.persistence.loadPersistedData()
-        // TODO: call API to verify health, Chlu Network and other information
         await this.didIpfsHelper.start()
     }
 
@@ -52,12 +51,21 @@ class ChluAPIClient {
         // this will sign it as both customer and issuer. The server can then replace the issuer signature with its own
         // the 'validate' option is forced to false because the API Client cannot validate.
         const bitcoinTransactionHash = get(options, 'bitcoinTransactionHash', null)
-        const result = await this.reviewRecords.prepareReviewRecord(reviewRecord, bitcoinTransactionHash, false)
-        return await this.api.storeReviewRecord(result.reviewRecord, options)
+
+        reviewRecord.issuer = await this.api.getPublisherDID() // Authorize server to issue review
+        const result = await this.reviewRecords.prepareReviewRecord(reviewRecord, bitcoinTransactionHash, false, true, false)
+
+        return await this.api.storeReviewRecord(result.reviewRecord, Object.assign({
+            expectedMultihash: result.multihash
+        }, options))
     }
 
-    async getReviewsByDID(didId, offset, limit) {
-        return await this.api.getReviewsByDID(didId, offset, limit)
+    async getReviewsWrittenByDID(didId, offset, limit) {
+        return await this.api.getReviewsWrittenByDID(didId, offset, limit)
+    }
+
+    async getReviewsAboutDID(didId, offset, limit) {
+        return await this.api.getReviewsAboutDID(didId, offset, limit)
     }
 
     async getDID(didId, waitUntilPresent = false) {
