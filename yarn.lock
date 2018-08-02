@@ -934,7 +934,7 @@ chlu-did@ChluNetwork/chlu-did:
 
 chlu-ipfs-support@ChluNetwork/chlu-ipfs-support#misc-features:
   version "0.2.0"
-  resolved "https://codeload.github.com/ChluNetwork/chlu-ipfs-support/tar.gz/f55dbbffedef08ad835f9207e88062c494a0b99b"
+  resolved "https://codeload.github.com/ChluNetwork/chlu-ipfs-support/tar.gz/60fb9eae97b95a7bf4afe3cc06b700283e8040dd"
   dependencies:
     axios "^0.18.0"
     blockcypher ChluNetwork/node-client
@@ -6575,8 +6575,8 @@ tar-stream@^1.1.2, tar-stream@^1.5.5, tar-stream@^1.6.0:
     xtend "^4.0.0"
 
 tar@^4:
-  version "4.4.4"
-  resolved "https://registry.yarnpkg.com/tar/-/tar-4.4.4.tgz#ec8409fae9f665a4355cc3b4087d0820232bb8cd"
+  version "4.4.6"
+  resolved "https://registry.yarnpkg.com/tar/-/tar-4.4.6.tgz#63110f09c00b4e60ac8bcfe1bf3c8660235fbc9b"
   dependencies:
     chownr "^1.0.1"
     fs-minipass "^1.2.5"
