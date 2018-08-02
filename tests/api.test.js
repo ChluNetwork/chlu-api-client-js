@@ -17,6 +17,7 @@ describe('API Client', () => {
     })
 
     it('correctly signs review records when posting them', async () => {
+        chluApiClient.api.getPublisherDID = sinon.stub().resolves('did:chlu:publisher')
         chluApiClient.api.publishDID = sinon.stub().resolves()
         chluApiClient.api.storeReviewRecord = sinon.stub().resolves({ ok: true })
         sinon.spy(chluApiClient.reviewRecords, 'prepareReviewRecord')

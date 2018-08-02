@@ -17,6 +17,17 @@ describe('HTTP Client', () => {
         api = chluApiClient.api
     })
 
+    it('getPublisherDID', async () => {
+        api.axios = {
+            get: sinon.stub().resolves({
+                data: { did: 'example' }
+            })
+        }
+        let response = await api.getPublisherDID()
+        expect(response).to.deep.equal('example')
+        expect(api.axios.get.args[0][0]).to.equal('https://test.publish.chlu.io/api/v1/id')
+    })
+
     it('readReviewRecord', async () => {
         api.axios = {
             get: sinon.stub().resolves({
@@ -53,6 +64,7 @@ describe('HTTP Client', () => {
         expect(api.axios.post.args[0][2]).to.deep.equal({
             params: {
                 bitcoinTransactionHash: 'abc',
+                expectedMultihash: '',
                 publish: false
             }
         })
@@ -60,19 +72,20 @@ describe('HTTP Client', () => {
         expect(api.axios.post.args[1][1]).to.deep.equal(reviewRecord)
         expect(api.axios.post.args[1][2]).to.deep.equal({
             params: {
-                bitcoinTransactionHash: null,
+                bitcoinTransactionHash: '',
+                expectedMultihash: '',
                 publish: true
             }
         })
     })
 
-    it('getReviewsByDID', async () => {
+    it('getReviewsAboutDID', async () => {
         api.axios = {
             get: sinon.stub().resolves({
                 data: { hello: 'world' }
             })
         }
-        let response = await api.getReviewsByDID('abc')
+        let response = await api.getReviewsAboutDID('abc')
         expect(response).to.deep.equal({ hello: 'world' })
         expect(api.axios.get.args[0][0]).to.equal('https://test.query.chlu.io/api/v1/dids/abc/reviews/about')
         expect(api.axios.get.args[0][1]).to.deep.equal({
@@ -81,7 +94,31 @@ describe('HTTP Client', () => {
                 offset: 0
             }
         })
-        response = await api.getReviewsByDID('abc', 100, 20)
+        response = await api.getReviewsAboutDID('abc', 100, 20)
+        expect(api.axios.get.args[1][1]).to.deep.equal({
+            params: {
+                limit: 20,
+                offset: 100
+            }
+        })
+    })
+
+    it('getReviewsWrittenByDID', async () => {
+        api.axios = {
+            get: sinon.stub().resolves({
+                data: { hello: 'world' }
+            })
+        }
+        let response = await api.getReviewsWrittenByDID('abc')
+        expect(response).to.deep.equal({ hello: 'world' })
+        expect(api.axios.get.args[0][0]).to.equal('https://test.query.chlu.io/api/v1/dids/abc/reviews/writtenby')
+        expect(api.axios.get.args[0][1]).to.deep.equal({
+            params: {
+                limit: 0,
+                offset: 0
+            }
+        })
+        response = await api.getReviewsWrittenByDID('abc', 100, 20)
         expect(api.axios.get.args[1][1]).to.deep.equal({
             params: {
                 limit: 20,
