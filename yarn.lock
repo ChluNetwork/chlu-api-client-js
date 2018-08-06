@@ -273,8 +273,10 @@ asn1.js@^5.0.0:
     minimalistic-assert "^1.0.0"
 
 asn1@~0.2.3:
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/asn1/-/asn1-0.2.3.tgz#dac8787713c9966849fc8180777ebe9c1ddf3b86"
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/asn1/-/asn1-0.2.4.tgz#8d2475dfab553bb33e77b54e59e880bb8ce23136"
+  dependencies:
+    safer-buffer "~2.1.0"
 
 assert-plus@1.0.0, assert-plus@^1.0.0:
   version "1.0.0"
@@ -630,12 +632,6 @@ blockcypher@ChluNetwork/node-client:
   dependencies:
     superagent "^3.8.2"
 
-blockcypher@ChluNetwork/node-client#fixes:
-  version "0.2.0"
-  resolved "https://codeload.github.com/ChluNetwork/node-client/tar.gz/ac1ce99c61886a0bfd6f998d5d5ed3ab89ec86a3"
-  dependencies:
-    superagent "^3.8.2"
-
 bn.js@=2.0.4:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/bn.js/-/bn.js-2.0.4.tgz#220a7cd677f7f1bfa93627ff4193776fe7819480"
@@ -944,9 +940,9 @@ check-error@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/check-error/-/check-error-1.0.2.tgz#574d312edd88bb5dd8912e9286dd6c0aed4aac82"
 
-chlu-did@ChluNetwork/chlu-did:
-  version "1.0.0"
-  resolved "https://codeload.github.com/ChluNetwork/chlu-did/tar.gz/67bb48067b0d82d2583999afd3a321174ef10a04"
+"chlu-did@ChluNetwork/chlu-did#semver:~0.1.0":
+  version "0.1.0"
+  resolved "https://codeload.github.com/ChluNetwork/chlu-did/tar.gz/65a4a24edb93d89e86a3efb93a78aeff89ff39d4"
   dependencies:
     brorand "^1.1.0"
     bs58 "4.0.1"
@@ -954,14 +950,14 @@ chlu-did@ChluNetwork/chlu-did:
     js-sha3 "^0.7.0"
 
 "chlu-ipfs-support@ChluNetwork/chlu-ipfs-support#semver:~0.1.0":
-  version "0.1.0"
-  resolved "https://codeload.github.com/ChluNetwork/chlu-ipfs-support/tar.gz/606e795402de1379f2b893df2e281ecf7df7cb80"
+  version "0.1.1"
+  resolved "https://codeload.github.com/ChluNetwork/chlu-ipfs-support/tar.gz/e08d7e427b4339b4e9f8ac9322f92028c467a94a"
   dependencies:
     axios "^0.18.0"
     blockcypher ChluNetwork/node-client
     brorand "^1.1.0"
-    chlu-did ChluNetwork/chlu-did
-    chlu-wallet-support-js ChluNetwork/chlu-wallet-support-js
+    chlu-did "ChluNetwork/chlu-did#semver:~0.1.0"
+    chlu-wallet-support-js "ChluNetwork/chlu-wallet-support-js#semver:~0.1.1"
     commander "^2.15.1"
     debounce-async "^0.0.1"
     elliptic "^6.4.0"
@@ -973,13 +969,13 @@ chlu-did@ChluNetwork/chlu-did:
     orbit-db "~0.19.9"
     protons "~1.0.1"
 
-chlu-wallet-support-js@ChluNetwork/chlu-wallet-support-js:
-  version "0.0.1"
-  resolved "https://codeload.github.com/ChluNetwork/chlu-wallet-support-js/tar.gz/45055b078c68ea5a50cf9036b6c1663cb1fb67e8"
+"chlu-wallet-support-js@ChluNetwork/chlu-wallet-support-js#semver:~0.1.1":
+  version "0.1.1"
+  resolved "https://codeload.github.com/ChluNetwork/chlu-wallet-support-js/tar.gz/56e13ba8c2c4f0f66acb6c2b72cc738ad0d1a258"
   dependencies:
     bip39 "^2.4.0"
     bitcoinjs-lib "^3.1.1"
-    blockcypher ChluNetwork/node-client#fixes
+    blockcypher ChluNetwork/node-client
     coinselect "^3.1.11"
     dotenv "4.0.0"
     es6-promisify "^5.0.0"
@@ -1108,8 +1104,8 @@ commander@2.15.1:
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.15.1.tgz#df46e867d0fc2aec66a34662b406a9ccafff5b0f"
 
 commander@^2.11.0, commander@^2.15.0, commander@^2.15.1:
-  version "2.16.0"
-  resolved "https://registry.yarnpkg.com/commander/-/commander-2.16.0.tgz#f16390593996ceb4f3eeb020b31d78528f7f8a50"
+  version "2.17.0"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-2.17.0.tgz#9d07b25e2a6f198b76d8b756a0e8a9604a6a1a60"
 
 compare-versions@^3.1.0:
   version "3.3.0"
@@ -1667,8 +1663,8 @@ eslint-visitor-keys@^1.0.0:
   resolved "https://registry.yarnpkg.com/eslint-visitor-keys/-/eslint-visitor-keys-1.0.0.tgz#3f3180fb2e291017716acb4c9d6d5b5c34a6a81d"
 
 eslint@^5.2.0:
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/eslint/-/eslint-5.2.0.tgz#3901ae249195d473e633c4acbc370068b1c964dc"
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/eslint/-/eslint-5.3.0.tgz#53695aca5213968aacdf970ccb231e42a2b285f8"
   dependencies:
     ajv "^6.5.0"
     babel-code-frame "^6.26.0"
@@ -1701,7 +1697,7 @@ eslint@^5.2.0:
     path-is-inside "^1.0.2"
     pluralize "^7.0.0"
     progress "^2.0.0"
-    regexpp "^1.1.0"
+    regexpp "^2.0.0"
     require-uncached "^1.0.3"
     semver "^5.5.0"
     string.prototype.matchall "^2.0.0"
@@ -2063,8 +2059,8 @@ fnv1a@^1.0.1:
   resolved "https://registry.yarnpkg.com/fnv1a/-/fnv1a-1.0.1.tgz#915e2d6d023c43d5224ad9f6d2a3c4156f5712f5"
 
 follow-redirects@^1.3.0:
-  version "1.5.1"
-  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.5.1.tgz#67a8f14f5a1f67f962c2c46469c79eaec0a90291"
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.5.2.tgz#5a9d80e0165957e5ef0c1210678fc5c4acb9fb03"
   dependencies:
     debug "^3.1.0"
 
@@ -2536,8 +2532,8 @@ ignore-walk@^3.0.1:
     minimatch "^3.0.4"
 
 ignore@^4.0.2:
-  version "4.0.2"
-  resolved "https://registry.yarnpkg.com/ignore/-/ignore-4.0.2.tgz#0a8dd228947ec78c2d7f736b1642a9f7317c1905"
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/ignore/-/ignore-4.0.3.tgz#e2d58c9654d75b542529fa28d80ac95b29e4f467"
 
 immediate@^3.2.3, immediate@~3.2.3:
   version "3.2.3"
@@ -5420,8 +5416,8 @@ path-key@^2.0.0, path-key@^2.0.1:
   resolved "https://registry.yarnpkg.com/path-key/-/path-key-2.0.1.tgz#411cadb574c5a140d3a4b1910d40d80cc9f40b40"
 
 path-parse@^1.0.5:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/path-parse/-/path-parse-1.0.5.tgz#3c1adf871ea9cd6c9431b6ea2bd74a0ff055c4c1"
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/path-parse/-/path-parse-1.0.6.tgz#d62dbb5679405d72c4737ec58600e9ddcf06d24c"
 
 path-to-regexp@^1.7.0:
   version "1.7.0"
@@ -5667,8 +5663,8 @@ pseudomap@^1.0.2:
   resolved "https://registry.yarnpkg.com/pseudomap/-/pseudomap-1.0.2.tgz#f052a28da70e618917ef0a8ac34c1ae5a68286b3"
 
 psl@^1.1.24:
-  version "1.1.28"
-  resolved "https://registry.yarnpkg.com/psl/-/psl-1.1.28.tgz#4fb6ceb08a1e2214d4fd4de0ca22dae13740bc7b"
+  version "1.1.29"
+  resolved "https://registry.yarnpkg.com/psl/-/psl-1.1.29.tgz#60f580d360170bb722a797cc704411e6da850c67"
 
 pull-abortable@^4.1.1:
   version "4.1.1"
@@ -5977,9 +5973,9 @@ regexp.prototype.flags@^1.2.0:
   dependencies:
     define-properties "^1.1.2"
 
-regexpp@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/regexpp/-/regexpp-1.1.0.tgz#0e3516dd0b7904f413d2d4193dce4618c3a689ab"
+regexpp@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/regexpp/-/regexpp-2.0.0.tgz#b2a7534a85ca1b033bcf5ce9ff8e56d4e0755365"
 
 registry-auth-token@^3.0.1:
   version "3.3.2"
@@ -6151,7 +6147,7 @@ safe-regex@^1.1.0:
   dependencies:
     ret "~0.1.10"
 
-"safer-buffer@>= 2.1.2 < 3", safer-buffer@^2.0.2, safer-buffer@^2.1.0:
+"safer-buffer@>= 2.1.2 < 3", safer-buffer@^2.0.2, safer-buffer@^2.1.0, safer-buffer@~2.1.0:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
 
@@ -7053,8 +7049,8 @@ uuid@^3.1.0, uuid@^3.2.1:
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.3.2.tgz#1b4af4955eb3077c501c23872fc6513811587131"
 
 validate-npm-package-license@^3.0.1:
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/validate-npm-package-license/-/validate-npm-package-license-3.0.3.tgz#81643bcbef1bdfecd4623793dc4648948ba98338"
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/validate-npm-package-license/-/validate-npm-package-license-3.0.4.tgz#fc91f6b9c7ba15c857f4cb2c5defeec39d4f410a"
   dependencies:
     spdx-correct "^3.0.0"
     spdx-expression-parse "^3.0.0"
