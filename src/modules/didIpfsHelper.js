@@ -25,8 +25,8 @@ class ChluIPFSDID {
         if (!this.isPresent()) {
             // Generate a DID & Publish
             await this.generate();
-            await this.chluIpfs.persistence.persistData();
         }
+        await this.publish()
     }
 
     async generate(publish, waitForReplication) {
