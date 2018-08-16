@@ -7,6 +7,7 @@ const ReviewRecords = require('chlu-ipfs-support/src/modules/reviewrecords')
 const Protobuf = require('chlu-ipfs-support/src/modules/protobuf')
 const Logger = require('chlu-ipfs-support/src/utils/logger')
 const Storage = require('chlu-ipfs-support/src/utils/storage')
+const constants = require('chlu-ipfs-support/src/constants')
 const { get } = require('lodash')
 const path = require('path')
 
@@ -17,6 +18,7 @@ class ChluAPIClient {
         const defaultDirectory = path.join(get(process, 'env.HOME', ''), 'chlu-api-client')
         this.directory = options.directory || defaultDirectory
         this.enablePersistence = get(options, 'enablePersistence', true)
+        this.network = get(options, 'network', constants.networks.experimental)
         // Some of the Chlu full node modules are necessary here too
         this.storage = Storage
         this.logger = options.logger || Logger
