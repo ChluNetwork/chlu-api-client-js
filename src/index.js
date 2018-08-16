@@ -2,7 +2,7 @@ const EventEmitter = require('events')
 const DIDIPFSHelper = require('./modules/didIpfsHelper')
 const APIClient = require('./modules/http')
 const Persistence = require('./modules/persistence')
-const Vendor = require('chlu-ipfs-support/src/modules/vendor')
+const Vendor = require('./modules/vendor')
 const ReviewRecords = require('chlu-ipfs-support/src/modules/reviewrecords')
 const Protobuf = require('chlu-ipfs-support/src/modules/protobuf')
 const Logger = require('chlu-ipfs-support/src/utils/logger')
@@ -89,9 +89,26 @@ class ChluAPIClient {
     async importDID(did, publish, waitForReplication) {
         return await this.didIpfsHelper.import(did, publish, waitForReplication)
     }
-    
+
+    /**
+     * Register to a Chlu Marketplace using your DID. The process is non-interactive.
+     *
+     * @param {string} url URL to a reachable service that implements the Chlu Marketplace HTTP API
+     * @memberof ChluAPIClient
+     */
     async registerToMarketplace(url) {
         return await this.vendor.registerToMarketplace(url)
+    }
+
+    /**
+     * Update your vendor profile in a Chlu Marketplace using your DID
+     *
+     * @param {string} url URL to a reachable service that implements the Chlu Marketplace HTTP API
+     * @param {object} profile your new profile
+     * @memberof ChluAPIClient
+     */
+    async updateVendorProfile(url, profile) {
+        return await this.vendor.updateProfile(url, profile)
     }
 
 }

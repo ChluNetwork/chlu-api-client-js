@@ -73,6 +73,36 @@ class APIClient {
         return response.data
     }
 
+    async sendVendorProfile(url, didId, profile, signature) {
+        const response = await this.axios.post(`${url}/vendors/${didId}/profile`, { profile, signature })
+        return response.data
+    }
+
+    async getMarketplaceInfo(url) {
+        const response = await this.axios.get(`${url}/.well-known`)
+        return response.data
+    }
+
+    async getVendorData(url, didId) {
+        try {
+            const response = await this.axios.get(`${url}/vendors/${didId}`)
+            return response.data
+        } catch (error) {
+            return { data: {} }
+        }
+    }
+
+    async signupToMarketplace(url, didId) {
+        const response = await this.axios.post(`${url}/vendors`, { didId });
+        return response.data
+    }
+
+    async sendVendorSignature(url, didId, signature, profile = null) {
+        const body = profile ? { signature, profile } : { signature }
+        const response = await this.axios.post(`${url}/vendors/${didId}/signature`, body);
+        return response.data
+    }
+
 }
 
 module.exports = APIClient
