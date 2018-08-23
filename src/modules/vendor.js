@@ -8,6 +8,7 @@ class Vendor {
 
     async registerToMarketplace(url, profile = null) {
         const didId = this.chluApiClient.didIpfsHelper.didId
+        const publicDidDocument = this.chluApiClient.didIpfsHelper.publicDidDocument
         this.chluApiClient.logger.debug(`Registering as Vendor to ${url} using DID ${didId}`)
         // check Marketplace Chlu Network
         const info = await this.chluApiClient.api.getMarketplaceInfo(url)
@@ -33,7 +34,7 @@ class Vendor {
             const vmPubKeyMultihash = vendorData.vmPubKeyMultihash
             this.chluApiClient.logger.debug(`Sending Vendor Signature for ${vmPubKeyMultihash}, profile: ${JSON.stringify(profile)}`)
             const signature = await this.chluApiClient.didIpfsHelper.signMultihash(vmPubKeyMultihash);
-            await this.chluApiClient.api.sendVendorSignature(url, didId, signature, profile)
+            await this.chluApiClient.api.sendVendorSignature(url, publicDidDocument, signature, profile)
         } else {
             this.chluApiClient.logger.debug('Marketplace/Vendor key already signed')
         }
