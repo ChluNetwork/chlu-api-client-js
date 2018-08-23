@@ -6,7 +6,7 @@ const ChluAPIClient = require('../src');
 const logger = require('chlu-ipfs-support/tests/utils/logger');
 
 describe('Vendor Module', () => {
-    let chluApiClient, didId
+    let chluApiClient, didId, publicDidDocument
 
     beforeEach(async () => {
         chluApiClient = new ChluAPIClient({
@@ -20,6 +20,7 @@ describe('Vendor Module', () => {
         chluApiClient.api.getMarketplaceInfo = sinon.stub().resolves({ network: 'experimental' })
         await chluApiClient.didIpfsHelper.start()
         didId = chluApiClient.didIpfsHelper.didId
+        publicDidDocument = chluApiClient.didIpfsHelper.publicDidDocument
     });
 
     afterEach(() => {
@@ -42,7 +43,7 @@ describe('Vendor Module', () => {
         expect(chluApiClient.api.getVendorData.calledWith(url, didId)).to.be.true
         expect(chluApiClient.api.signupToMarketplace.calledWith(url, didId)).to.be.true
         const signature = await chluApiClient.didIpfsHelper.signMultihash.returnValues[0]
-        expect(chluApiClient.api.sendVendorSignature.calledWith(url, didId, signature)).to.be.true
+        expect(chluApiClient.api.sendVendorSignature.calledWith(url, publicDidDocument, signature)).to.be.true
     });
 
     it('submits the signature if the vendor is signed up but the sig is missing', async () => {
@@ -54,7 +55,7 @@ describe('Vendor Module', () => {
         expect(chluApiClient.api.getVendorData.calledWith(url, didId)).to.be.true
         expect(chluApiClient.api.signupToMarketplace.called).to.be.false
         const signature = await chluApiClient.didIpfsHelper.signMultihash.returnValues[0]
-        expect(chluApiClient.api.sendVendorSignature.calledWith(url, didId, signature)).to.be.true
+        expect(chluApiClient.api.sendVendorSignature.calledWith(url, publicDidDocument, signature)).to.be.true
     });
 
     it('does nothing if the vendor is already fully signed up', async () => {

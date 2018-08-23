@@ -97,8 +97,9 @@ class APIClient {
         return response.data
     }
 
-    async sendVendorSignature(url, didId, signature, profile = null) {
-        const body = profile ? { signature, profile } : { signature }
+    async sendVendorSignature(url, publicDidDocument, signature, profile = null) {
+        const body = profile ? { signature, publicDidDocument, profile } : { signature, publicDidDocument }
+        const didId = publicDidDocument.id
         const response = await this.axios.post(`${url}/vendors/${didId}/signature`, body);
         return response.data
     }
