@@ -94,10 +94,11 @@ class ChluAPIClient {
      * Register to a Chlu Marketplace using your DID. The process is non-interactive.
      *
      * @param {string} url URL to a reachable service that implements the Chlu Marketplace HTTP API
+     * @param {object} profile optionally provide profile data to be included
      * @memberof ChluAPIClient
      */
-    async registerToMarketplace(url) {
-        return await this.vendor.registerToMarketplace(url)
+    async registerToMarketplace(url, profile = null) {
+        return await this.vendor.registerToMarketplace(url, profile)
     }
 
     /**
