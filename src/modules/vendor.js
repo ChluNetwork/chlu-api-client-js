@@ -44,11 +44,12 @@ class Vendor {
     }
 
     async updateProfile(url, profile = null) {
-        const didId = this.chluApiClient.didIpfsHelper.didId
+        const publicDidDocument = this.chluApiClient.didIpfsHelper.publicDidDocument
+        const didId = publicDidDocument.id
         this.chluApiClient.logger.debug(`Updating Vendor Profile for Marketplace ${url} using DID ${didId}`)
         const multihash = getDAGNodeMultihash(await createDAGNode(Buffer.from(JSON.stringify(profile))))
         const signature = await this.chluApiClient.didIpfsHelper.signMultihash(multihash);
-        await this.chluApiClient.api.sendVendorProfile(url, didId, profile, signature)
+        await this.chluApiClient.api.sendVendorProfile(url, publicDidDocument, profile, signature, publicDidDocument)
         this.chluApiClient.logger.debug(`Updating Vendor Profile for Marketplace ${url} using DID ${didId} updated`)
     }
 }
