@@ -1,5 +1,9 @@
 # Chlu API Client Changelog
 
+## v0.2.1
+
+- send publicDidDocument with vendor signature to speed up the process of signing up to marketplace
+
 ## v0.2.0
 
 - moved vendor module of ChluIPFS in Chlu API Client
