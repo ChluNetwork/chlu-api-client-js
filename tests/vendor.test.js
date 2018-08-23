@@ -75,6 +75,6 @@ describe('Vendor Module', () => {
         const profile = { name: 'Developer' }
         await chluApiClient.vendor.updateProfile(url, profile)
         const signature = await chluApiClient.didIpfsHelper.signMultihash.returnValues[0]
-        expect(chluApiClient.api.sendVendorProfile.calledWith(url, didId, profile, signature)).to.be.true
+        expect(chluApiClient.api.sendVendorProfile.calledWith(url, publicDidDocument, profile, signature)).to.be.true
     })
 });
