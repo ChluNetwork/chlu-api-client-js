@@ -3,6 +3,7 @@ const DIDIPFSHelper = require('./modules/didIpfsHelper')
 const APIClient = require('./modules/http')
 const Persistence = require('./modules/persistence')
 const Vendor = require('./modules/vendor')
+const ProfileResolver = require('./modules/profiles')
 const ReviewRecords = require('chlu-ipfs-support/src/modules/reviewrecords')
 const Protobuf = require('chlu-ipfs-support/src/modules/protobuf')
 const Logger = require('chlu-ipfs-support/src/utils/logger')
@@ -23,12 +24,14 @@ class ChluAPIClient {
         this.storage = Storage
         this.logger = options.logger || Logger
         this.events = new EventEmitter()
-        this.persistence = new Persistence(this)
         this.protobuf = new Protobuf(this)
         this.reviewRecords = new ReviewRecords(this)
-        this.vendor = new Vendor(this)
         // Some are specific versions for the api client
+        this.persistence = new Persistence(this)
         this.didIpfsHelper = new DIDIPFSHelper(this)
+        // Then there are APIClient specific modules
+        this.vendor = new Vendor(this)
+        this.profileResolver = new ProfileResolver(this)
         this.api = new APIClient(
             options.queryApiUrl || '/',
             options.publishApiUrl || '/'
@@ -44,8 +47,12 @@ class ChluAPIClient {
         await this.persistence.persistData()
     }
 
-    async readReviewRecord(multihash, options) {
-        return await this.api.readReviewRecord(multihash, options)
+    async readReviewRecord(multihash, options = {}) {
+        const reviewRecord = await this.api.readReviewRecord(multihash, options)
+        if (options.resolveProfiles) {
+            await this.profileResolver.resolveProfiles(reviewRecord, options.resolveProfilesTimeout)
+        }
+        return reviewRecord
     }
 
     async storeReviewRecord(reviewRecord, options = {}) {
@@ -62,12 +69,20 @@ class ChluAPIClient {
         }, options))
     }
 
-    async getReviewsWrittenByDID(didId, offset, limit) {
-        return await this.api.getReviewsWrittenByDID(didId, offset, limit)
+    async getReviewsWrittenByDID(didId, offset, limit, options = {}) {
+        const result = await this.api.getReviewsWrittenByDID(didId, offset, limit)
+        if (options.resolveProfiles) {
+            result.rows = await this.profileResolver.resolveProfiles(result.rows, options.resolveProfilesTimeout)
+        }
+        return result
     }
 
-    async getReviewsAboutDID(didId, offset, limit) {
-        return await this.api.getReviewsAboutDID(didId, offset, limit)
+    async getReviewsAboutDID(didId, offset, limit, options = {}) {
+        const result = await this.api.getReviewsAboutDID(didId, offset, limit)
+        if (options.resolveProfiles) {
+            result.rows = await this.profileResolver.resolveProfiles(result.rows, options.resolveProfilesTimeout)
+        }
+        return result
     }
 
     async getDID(didId, waitUntilPresent = false) {
