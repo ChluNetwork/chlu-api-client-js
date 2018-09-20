@@ -1,5 +1,9 @@
 # Chlu API Client Changelog
 
+## v0.3.0
+
+- added support for resolving author and subject profiles in review records
+
 ## v0.2.2
 
 - send publicDidDocument with vendor profile to speed up the process of signing up to marketplace

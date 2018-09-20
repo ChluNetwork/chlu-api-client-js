@@ -1,6 +1,6 @@
 {
   "name": "chlu-api-client",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "client to connect to the Chlu APIs",
   "main": "src/index.js",
   "repository": "https://github.com/ChluNetwork/chlu-api-client-js.git",
