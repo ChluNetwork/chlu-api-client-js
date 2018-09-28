@@ -1,5 +1,9 @@
 # Chlu API Client Changelog
 
+## v0.3.1
+
+- updated deps
+
 ## v0.3.0
 
 - added support for resolving author and subject profiles in review records
